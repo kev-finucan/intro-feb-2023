@@ -1,6 +1,6 @@
 ﻿namespace Banking.Domain
 {
-    public class NoNegativeNumbersException : Exception
+    public class NoNegativeNumbersException : ArgumentOutOfRangeException
     {
     }
 }
