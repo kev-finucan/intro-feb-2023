@@ -19,11 +19,11 @@ public class StatusController : ControllerBase
         // look this up from a database or whatever
         // If it is between midnight and 4pm, use a phone #
         // Outside of that, use an email address
-        var contact = _systemTime.GetCurrent().Hour < 16 ? "bob@aol.com" : "555 555-5555";
+        var contact = _systemTime.GetCurrent().Hour < 14 ? "555 555-5555" : "bob@aol.com";
         var response = new GetStatusResponse
         {
             Message = "All Good",
-            Contact = "555 555-5555"
+            Contact = contact
         };
         return Ok(response);
     }
