@@ -8,13 +8,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { StatusDataService } from './services/status-data.service';
 import { CounterComponent } from './components/counter/counter.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CounterPrefsComponent } from './components/counter-prefs/counter-prefs.component';
+import { EffectsModule } from '@ngrx/effects';
+import { CounterEffects } from './state/effects/counter.effects';
+import { ApplicationEffects } from './state/effects/app.effects';
+
 
 @NgModule({
   declarations: [
@@ -24,17 +28,18 @@ import { CounterPrefsComponent } from './components/counter-prefs/counter-prefs.
     AboutComponent,
     NavigationComponent,
     CounterComponent,
-    CounterPrefsComponent,
+    CounterPrefsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,// -> Has a service it provided call the HttpClient
+    HttpClientModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([CounterEffects, ApplicationEffects])
   ],
-  providers: [StatusDataService], // API -> builder.Services.AddSingleton
+  providers: [StatusDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './components/about/about.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+
 
 const routes: Routes = [
   {
@@ -23,13 +24,18 @@ const routes: Routes = [
     component: CounterComponent
   },
   {
-    path: '**', // catch-all / default route if no other route match is found. Must be the last route
-    redirectTo: 'dashboard' // Routing works like if/else when finding matches
+    path: 'learning',
+    loadChildren: () => import('./learning-resources/learning-resources.module').then(m => m.LearningResourcesModule)
+  },
+
+  {
+    path: '**', // <-- Angular syntax that matches ANYTHING
+    redirectTo: 'dashboard'
   }
-];
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
